@@ -1,0 +1,48 @@
+<html>
+<head>
+    <title>Food Log</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,600">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <link rel="stylesheet" href="food.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        async function initData() {
+            return {
+                Label: "Hello",
+                DailyEntries: [
+                    { Name: "First", Calories: 200 }
+                ]
+            };
+        }
+    </script>
+</head>
+<body>
+    <div x-data="{ data: {} }" x-init="data = await initData()">
+        <div class="navbar">
+            <div class="container" style="margin-bottom: 0px;">
+                <div class="clear">
+                    <div class="u-pull-right">
+                        <button class="button-primary" @click="alert('test')">Add</button>
+                    </div>
+                    <span x-text="data.Label"></span>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="navbar-height" style="width: 1px;"></div>
+
+            <div class="food-header food-row">
+                <div class="calories">Calories</div>
+                Food
+            </div>
+            <template x-for="entry in data.DailyEntries">
+                <div class="food-row">
+                    <div class="calories" x-text="entry.Calories">Calories</div>
+                    <span x-text="entry.Name"></span>
+                </div>
+            </template>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+.navbar, .navbar-height {
+    /* Button: 38 + 3 + 3 = 44 */
+    height: 44px;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #eee;
+    padding-top: 3px;
+    font-size: 1.8em;
+    z-index: 1000;
+}
+/* Self-clear */
+.clear:after, .food-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.food-header {
+    font-weight: bold;
+}
+
+.food-row .calories {
+    float: right;
+}
+
+body {
+    font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
