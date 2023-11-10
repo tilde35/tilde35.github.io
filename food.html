@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <title>Food Log</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,23 +10,36 @@
     <script>
         async function initData() {
             return {
-                Label: "Hello",
+                search: "",
+                label: "Hello",
                 DailyEntries: [
                     { Name: "First", Calories: 200 }
                 ]
             };
         }
+
+        function searchFor(query) {
+            if (query == '') return [];
+            query = query.toLowerCase();
+            var results = ['One', 'Two', 'Three', 'Four', 'Five', 'Six'];
+            results = results.filter(item => item.toLowerCase().includes(query));
+            return {
+                message: results.length == 0 ? 'No results' : '',
+                entries: results
+            };
+        }
     </script>
 </head>
+
 <body>
-    <div x-data="{ data: {} }" x-init="data = await initData()">
+    <div x-data="{ data: {}, search: '', searchOpen: false, searchResults: [] }" x-init="data = await initData()">
         <div class="navbar">
             <div class="container" style="margin-bottom: 0px;">
                 <div class="clear">
                     <div class="u-pull-right">
                         <button class="button-primary" @click="alert('test')">Add</button>
                     </div>
-                    <span x-text="data.Label"></span>
+                    <span x-text="data.label"></span>
                 </div>
             </div>
         </div>
@@ -43,6 +57,23 @@
                 </div>
             </template>
         </div>
+        <div class="footer" style="bottom: 53px;" x-show="searchOpen"
+            x-effect="searchOpen = search != ''; searchResults = searchFor(search)">
+            <div
+                style="background-color: #eee; border: 1px solid #ccc; border-radius: 5px; margin-left: 10px; margin-right: 10px; padding: 10px;">
+                <div>Select food...</div>
+                <template x-for="result in searchResults.entries">
+                    <div x-text="result"></div>
+                </template>
+                <div x-text="searchResults.message" style="font-style: italic;"></div>
+            </div>
+        </div>
+        <div class="footer">
+            <div style="margin-left: 10px; margin-right: 10px;">
+                <input type="text" class="u-full-width" placeholder="Add Food..." x-model="search">
+            </div>
+        </div>
     </div>
 </body>
+
 </html>
